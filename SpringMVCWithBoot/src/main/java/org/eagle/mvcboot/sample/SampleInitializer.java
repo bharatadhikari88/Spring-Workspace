@@ -1,5 +1,6 @@
 package org.eagle.mvcboot.sample;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 /*
  * @Component, @Service, @Repository, @Controller all these annotations are scanned by
@@ -24,7 +25,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SampleInitializer {
 	
 	public static void main(String[] args) {
-		
+		SpringApplication.run(SampleInitializer.class, args);
 	}
 
 }
