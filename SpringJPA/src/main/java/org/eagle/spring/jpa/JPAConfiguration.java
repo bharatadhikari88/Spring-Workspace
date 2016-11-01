@@ -1,5 +1,7 @@
 package org.eagle.spring.jpa;
 
+import java.util.Properties;
+
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
@@ -18,21 +20,30 @@ public class JPAConfiguration {
 	@Bean
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName("org.postgresql:Driver");
+		dataSource.setDriverClassName("org.postgresql.Driver");
 		dataSource.setUrl("jdbc:postgresql://localhost:5432/hibernate");
 		dataSource.setUsername("postgres");
-		dataSource.setPassword("postgres");
+		dataSource.setPassword("adhikari");
 		return dataSource;
 	}
 
 	@Bean
 	public LocalContainerEntityManagerFactoryBean localEntityManagerFactoryBean() {
 		LocalContainerEntityManagerFactoryBean localEntityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-		localEntityManagerFactoryBean.setDataSource(dataSource());
 		HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
+		hibernateJpaVendorAdapter.setShowSql(true);
 		hibernateJpaVendorAdapter.setDatabase(Database.POSTGRESQL);
 		localEntityManagerFactoryBean
 				.setJpaVendorAdapter(hibernateJpaVendorAdapter);
+		Properties properties = new Properties();
+		properties.put("hibernate.hbm2ddl.auto", "create");
+		
+		localEntityManagerFactoryBean.setDataSource(dataSource());
+		/** absence of scan it throw persistence.xml missing error**/
+		localEntityManagerFactoryBean.setPackagesToScan("org.eagle.spring.jpa");
+		localEntityManagerFactoryBean.setJpaProperties(properties);
+		
+		
 		return localEntityManagerFactoryBean;
 	}
 
