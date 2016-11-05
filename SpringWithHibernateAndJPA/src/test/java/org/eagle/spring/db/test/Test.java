@@ -3,9 +3,8 @@ package org.eagle.spring.db.test;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.eagle.spring.db.config.Config;
+import org.eagle.spring.db.config.DBConfig;
 import org.eagle.spring.db.entities.TestEntity;
-import org.eagle.spring.db.repository.TestRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.FixMethodOrder;
@@ -23,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = Config.class)
+@ContextConfiguration(classes = DBConfig.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @Transactional("hibernateTransactionManager")
 @Rollback(false)
@@ -54,16 +53,5 @@ public class Test {
 		entityManager.persist(test);
 
 	}
-
-	@Autowired
-	private TestRepository testRepository;
-
-	/*public void repositoryTest() {
-		TestEntity test = new TestEntity();
-		test.setId(3l);
-		test.setName("adhikari");
-		testRepository.save(test);
-
-	}*/
 
 }
