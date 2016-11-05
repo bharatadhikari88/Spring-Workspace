@@ -3,8 +3,9 @@ package org.eagle.spring.db.test;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.eagle.spring.db.config.DBConfig;
+import org.eagle.spring.db.config.Config;
 import org.eagle.spring.db.entities.TestEntity;
+import org.eagle.spring.db.repository.TestRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.FixMethodOrder;
@@ -16,22 +17,21 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-
 /**
  * 
  * @author SINGH.BHARAT
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = DBConfig.class)
+@ContextConfiguration(classes = Config.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @Transactional("hibernateTransactionManager")
 @Rollback(false)
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class Test {
 
 	@Autowired
 	private SessionFactory sessionFactory;
-
+	
 	@org.junit.Test
 	public void hibernateTest() {
 		Session session = sessionFactory.getCurrentSession();
@@ -54,5 +54,16 @@ public class Test {
 		entityManager.persist(test);
 
 	}
+
+	@Autowired
+	private TestRepository testRepository;
+
+	/*public void repositoryTest() {
+		TestEntity test = new TestEntity();
+		test.setId(3l);
+		test.setName("adhikari");
+		testRepository.save(test);
+
+	}*/
 
 }
