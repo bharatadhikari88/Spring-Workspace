@@ -1,0 +1,1 @@
+http://localhost:8080/SpringMVCWithoutBoot/WEB-INF/views/non-static.jsp  not accessible from browser only server can provide this.
