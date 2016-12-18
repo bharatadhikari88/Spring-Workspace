@@ -1,0 +1,18 @@
+Filter and Interceptors
+
+Filter
+1. @WebFilter(url) @component @order
+2. implement filter
+3. provide request wrapper which is absence in interceptor
+
+
+Interceptor
+1. @component
+2. extends WebMVCConfigAdapter and override addInterceptors
+3. pre post and after completion methods
+4. pre return false to stop
+5. "after completion" is call back method after view render.
+6. all global interceptor(who doesn’t have path pattern) are executed first
+7. order is same as order in registry in addInterceptor method
+
+calling is pre1,pre2,post2,post1,comp2,comp1
