@@ -31,12 +31,17 @@ public class SecurityController {
 	}
 
 	@RequestMapping(path = "/hello", method = RequestMethod.GET)
-	public String hello(HttpServletRequest  request,HttpServletResponse response) {
+	public String hello(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println(request.getSession().getAttribute("userDetail"));
 		return "hello";
 	}
 
 	@RequestMapping(path = "/logout", method = RequestMethod.GET)
-	public String logout() {
+	public String logout(HttpServletRequest request,
+			HttpServletResponse response) {
+		//request.getSession().invalidate();
+		System.out.println("invalidate session :- "
+				+ request.getSession().getAttribute("userDetail"));
 		return "logout";
 	}
 
@@ -49,7 +54,8 @@ public class SecurityController {
 
 	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
 	@PostAuthorize("hasRole('ROLE_ADMIN') OR returnObject.id == 2")
-	//@PreAuthorize("hasAuthority('ROLE_ADMIN') OR hasAuthority('ROLE_USER')") /** Authority need prefix ROLE_ **/
+	// @PreAuthorize("hasAuthority('ROLE_ADMIN') OR hasAuthority('ROLE_USER')")
+	// /** Authority need prefix ROLE_ **/
 	@RequestMapping(path = "/fetch/{username}", method = RequestMethod.GET)
 	public User fetch(@PathVariable String username) {
 		return userService.fetch(username);
