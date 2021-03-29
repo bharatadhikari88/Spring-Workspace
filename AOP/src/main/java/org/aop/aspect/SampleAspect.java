@@ -32,16 +32,30 @@ public class SampleAspect {
 	 */
 	@Pointcut("execution(* org.aop.joinpoints.SampleJoinPoint.method2(String)) && args(text)")
 	private void pointCutMethod2(String text){};
+
+
+	@Before("@annotation(org.aop.annotation.Loggable)")
+	private void beforeJoinPointMethod1(JoinPoint joinPoint){
+		System.out.println("Before method for Looggable annotation");
+	}
 	
 	@Before("pointCutMethod1()")
 	private void beforeJoinPointMethod1(JoinPoint joinPoint){
 		System.out.println("Before method");
 	}
-	
+
+	/**
+	 * It will be executed for both normal and exceptional termination.
+	 * @param joinPoint
+	 * @param i
+	 */
 	@After("execution(* org.aop.joinpoints.SampleJoinPoint.method1(int)) && args(i)")
 	private void afterJoinPointMethod1(JoinPoint joinPoint,int i){
 		System.out.println("After Method1 with i :- " + i);
 	}
+
+	//@AfterReturning  :- Normal termination
+	//@AfterThrowing :- Exceptional termination
 	
 	@Around("pointCutMethod2(text)")
 	private void aroundJoinPointMethod2(ProceedingJoinPoint jp,String text){
@@ -54,7 +68,6 @@ public class SampleAspect {
 			e.printStackTrace();
 		}
 		System.out.println("after method 2");
-		
 	}
 
 }

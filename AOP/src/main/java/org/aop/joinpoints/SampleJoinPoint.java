@@ -13,7 +13,8 @@ public class SampleJoinPoint {
 		System.out.println("Inside Method1 with param");
 		return i;
 	}
-	
+
+	@Loggable
 	public void method2() throws Exception{
 		System.out.println("Inside Method2");
 		throw new Exception("Exception");

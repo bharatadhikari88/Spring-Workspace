@@ -10,6 +10,15 @@ import org.springframework.boot.context.embedded.ServletContextInitializer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
+/**
+ * Spring provide 2 type of context
+ * 1. Application context :- Which hold components and services
+ * 2. Web context :- which hold controllers
+ *
+ * https://www.baeldung.com/spring-boot-context-hierarchy
+ *
+ * Spring Validators and BindingResults.
+ */
 @SpringBootApplication
 public class SMInitializer implements ServletContextInitializer{
 	
